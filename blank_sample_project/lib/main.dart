@@ -15,6 +15,7 @@ void main() {
   final BaseApiClient _apiClient = DioClient(
     alice: EnvConfig.env != 'PROD' ? _alice : null,
   );
+
   final BaseSharedPrefClient _sharedPrefClient = SharedPrefClient.instance;
 
   // Disable Landscape Mode
@@ -25,6 +26,7 @@ void main() {
   BlocOverrides.runZoned(
     () => runApp(
       SetupApp(
+        alice: _alice,
         apiClient: _apiClient,
         sharedPrefClient: _sharedPrefClient,
       ),

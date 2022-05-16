@@ -27,13 +27,12 @@ class ScreenArgument extends BaseModel {
     BlocBase<Object?>? bloc,
     Object? data,
     String? currentRoute,
-  }) {
-    return ScreenArgument(
-      bloc: bloc ?? this.bloc,
-      data: data ?? this.data,
-      currentRoute: currentRoute ?? this.currentRoute,
-    );
-  }
+  }) =>
+      ScreenArgument(
+        bloc: bloc ?? this.bloc,
+        data: data ?? this.data,
+        currentRoute: currentRoute ?? this.currentRoute,
+      );
 
   @override
   List<Object?> get props => [

@@ -41,7 +41,21 @@ class AppRouter {
                 )
               : const LandingScreen(),
         );
-
+      case RouteName.videoPlayerFullScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.videoPlayerFullScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.data is VideoMeta
+              ? args?.bloc != null
+                  ? BlocProvider.value(
+                      value: args!.bloc!,
+                      child: const VideoPlayerFullScreen(),
+                    )
+                  : const VideoPlayerFullScreen()
+              : const GeneralNotFoundScreen(),
+        );
       default:
         return MaterialPageRoute(
           settings: const RouteSettings(

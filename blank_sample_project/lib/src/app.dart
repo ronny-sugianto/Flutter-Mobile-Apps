@@ -8,11 +8,13 @@ import 'common/common.dart';
 import 'core/core.dart';
 
 class SetupApp extends StatelessWidget {
+  final Alice alice;
   final BaseApiClient apiClient;
   final BaseSharedPrefClient sharedPrefClient;
 
   const SetupApp({
     Key? key,
+    required this.alice,
     required this.apiClient,
     required this.sharedPrefClient,
   }) : super(key: key);
@@ -21,13 +23,17 @@ class SetupApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(create: (context) => apiClient),
+        RepositoryProvider(create: (context) => alice),
+        RepositoryProvider(create: (context) => sharedPrefClient),
         RepositoryProvider(create: (context) => sharedPrefClient),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AppSetupCubit()..initialize(),
+          ),
+          BlocProvider(
+            create: (context) => VideoPlayerCubit(),
           ),
         ],
         child: const App(
@@ -54,7 +60,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     try {
       context.read<Alice>().setNavigatorKey(_navigatorKey);
