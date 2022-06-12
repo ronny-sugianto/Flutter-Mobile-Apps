@@ -41,4 +41,15 @@ class ScreenArgument extends BaseModel {
         data,
         currentRoute,
       ];
+
+  @override
+  fromJson(Map<String, dynamic> json) => ScreenArgument(
+        bloc: json['bloc'],
+        data: json['data'],
+        currentRoute: json['currentRoute'],
+      );
+
+  @override
+  Map<String, dynamic> toJson() =>
+      {'bloc': bloc, 'data': data, 'currentRoute': currentRoute};
 }

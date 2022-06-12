@@ -42,6 +42,34 @@ class AppRouter {
               : const LandingScreen(),
         );
 
+      case RouteName.photosScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.photosScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const PhotosScreen(),
+                )
+              : const PhotosScreen(),
+        );
+
+      case RouteName.gpsScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.gpsScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const GpsScreen(),
+                )
+              : const GpsScreen(),
+        );
+
       default:
         return MaterialPageRoute(
           settings: const RouteSettings(

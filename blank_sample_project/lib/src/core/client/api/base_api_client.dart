@@ -1,3 +1,11 @@
+import 'dart:async';
+
+import 'package:alice/alice.dart';
+import 'package:blank_sample_project/src/common/common.dart';
+import 'package:dio/dio.dart';
+
+part 'api_client.dart';
+
 /// HTTP Client
 abstract class BaseApiClient {
   /// HTTP GET

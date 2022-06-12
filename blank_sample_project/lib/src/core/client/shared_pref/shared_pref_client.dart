@@ -1,5 +1,4 @@
-import 'package:blank_sample_project/src/core/core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+part of 'base_shared_pref_client.dart';
 
 /// Shared preference client
 class SharedPrefClient extends BaseSharedPrefClient {

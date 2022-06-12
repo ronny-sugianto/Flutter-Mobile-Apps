@@ -9,13 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Alice _alice = Alice(showNotification: false);
+  Alice _alice = Alice(showNotification: true);
 
   // Clients instantiation
   final BaseApiClient _apiClient = DioClient(
     alice: EnvConfig.env != 'PROD' ? _alice : null,
   );
+  final BaseAppSettingsClient _appSettingsClient = AppSettingsClient.instance;
+  final BaseGeocoderClient _geoCoderClient = GeocoderClient.instance;
+  final BaseGeolocatorClient _geoLocatorClient = GeolocatorClient.instance;
+  final BasePermissionClient _permissionClient = PermissionClient.instance;
   final BaseSharedPrefClient _sharedPrefClient = SharedPrefClient.instance;
+
+  // Repositories instantiation
+  final BaseImageRepository _imageRepository = ImageRepository(
+    baseUrl: EnvConfig.baseUrl,
+    apiClient: _apiClient,
+  );
 
   // Disable Landscape Mode
   SystemChrome.setPreferredOrientations(
@@ -25,8 +35,14 @@ void main() {
   BlocOverrides.runZoned(
     () => runApp(
       SetupApp(
+        alice: _alice,
         apiClient: _apiClient,
+        appSettingsClient: _appSettingsClient,
+        geocoderClient: _geoCoderClient,
+        geolocatorClient: _geoLocatorClient,
+        permissionClient: _permissionClient,
         sharedPrefClient: _sharedPrefClient,
+        imageRepository: _imageRepository,
       ),
     ),
     blocObserver: MainBlocObserver(),

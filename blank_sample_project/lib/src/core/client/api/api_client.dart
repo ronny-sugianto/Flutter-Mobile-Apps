@@ -1,10 +1,4 @@
-import 'dart:async';
-
-import 'package:alice/alice.dart';
-import 'package:blank_sample_project/src/common/common.dart';
-import 'package:dio/dio.dart';
-
-import 'base_api_client.dart';
+part of 'base_api_client.dart';
 
 class DioClient extends BaseApiClient {
   DioClient._();

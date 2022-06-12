@@ -8,21 +8,39 @@ import 'common/common.dart';
 import 'core/core.dart';
 
 class SetupApp extends StatelessWidget {
+  final Alice alice;
   final BaseApiClient apiClient;
+  final BaseAppSettingsClient appSettingsClient;
+  final BaseGeocoderClient geocoderClient;
+  final BaseGeolocatorClient geolocatorClient;
+  final BasePermissionClient permissionClient;
   final BaseSharedPrefClient sharedPrefClient;
+  final BaseImageRepository imageRepository;
 
   const SetupApp({
     Key? key,
+    required this.alice,
     required this.apiClient,
+    required this.appSettingsClient,
+    required this.geocoderClient,
+    required this.geolocatorClient,
+    required this.permissionClient,
     required this.sharedPrefClient,
+    required this.imageRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider(create: (context) => alice),
         RepositoryProvider(create: (context) => apiClient),
+        RepositoryProvider(create: (context) => appSettingsClient),
+        RepositoryProvider(create: (context) => geocoderClient),
+        RepositoryProvider(create: (context) => geolocatorClient),
+        RepositoryProvider(create: (context) => permissionClient),
         RepositoryProvider(create: (context) => sharedPrefClient),
+        RepositoryProvider(create: (context) => imageRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -54,7 +72,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     try {
       context.read<Alice>().setNavigatorKey(_navigatorKey);

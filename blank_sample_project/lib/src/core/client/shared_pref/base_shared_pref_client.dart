@@ -1,3 +1,7 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+part 'shared_pref_client.dart';
+
 /// Type definition for shared preference
 enum SharedPrefType {
   string,
